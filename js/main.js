@@ -171,6 +171,11 @@ function updateCopyrightYear() {
 function addArticleAnimations() {
   const articles = document.querySelectorAll('.card');
   
+  // Make cards visible initially (in case JS loads slowly or fails)
+  articles.forEach(article => {
+    article.style.opacity = '1';
+  });
+  
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -211,33 +216,55 @@ function addSearchFeature() {
     const searchTerm = searchInput.value.toLowerCase().trim();
     if (!searchTerm) return;
 
-    const articles = document.querySelectorAll('.card h3 a, .card p');
+    const allCards = document.querySelectorAll('.card');
     let found = false;
     let firstMatch = null;
 
+    // First, clear all previous highlights
+    allCards.forEach(card => {
+      card.classList.remove('search-highlight');
+    });
+
+    // Then search and highlight matches
+    const articles = document.querySelectorAll('.card h3 a, .card p');
     articles.forEach(element => {
       const text = element.textContent.toLowerCase();
+      const card = element.closest('.card');
+      
       if (text.includes(searchTerm)) {
-        element.closest('.card').style.border = '2px solid #ffbc00';
+        card.classList.add('search-highlight');
         
         // Track first match for scrolling
         if (!firstMatch) {
-          firstMatch = element.closest('.card');
+          firstMatch = card;
         }
         found = true;
-      } else {
-        const card = element.closest('.card');
-        if (card.style.border) {
-          card.style.border = '';
-        }
       }
     });
 
     if (found && firstMatch) {
       firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
     } else if (!found) {
-      alert('No articles found matching your search.');
+      showSearchMessage('No articles found matching your search.');
     }
+  }
+
+  function showSearchMessage(message) {
+    // Remove existing search message if any
+    const existingMsg = document.querySelector('.search-message');
+    if (existingMsg) {
+      existingMsg.remove();
+    }
+
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'search-message';
+    messageDiv.textContent = message;
+    document.body.appendChild(messageDiv);
+
+    // Remove message after 3 seconds
+    setTimeout(() => {
+      messageDiv.remove();
+    }, 3000);
   }
 
   if (searchBtn) {
