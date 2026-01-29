@@ -213,17 +213,18 @@ function addSearchFeature() {
 
     const articles = document.querySelectorAll('.card h3 a, .card p');
     let found = false;
+    let firstMatch = null;
 
     articles.forEach(element => {
       const text = element.textContent.toLowerCase();
       if (text.includes(searchTerm)) {
         element.closest('.card').style.border = '2px solid #ffbc00';
-        found = true;
         
-        // Scroll to first match
-        if (!found) {
-          element.closest('.card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // Track first match for scrolling
+        if (!firstMatch) {
+          firstMatch = element.closest('.card');
         }
+        found = true;
       } else {
         const card = element.closest('.card');
         if (card.style.border) {
@@ -232,7 +233,9 @@ function addSearchFeature() {
       }
     });
 
-    if (!found) {
+    if (found && firstMatch) {
+      firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else if (!found) {
       alert('No articles found matching your search.');
     }
   }
