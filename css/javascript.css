@@ -1,0 +1,179 @@
+/* JavaScript Features Styles */
+
+/* Back to Top Button */
+#backToTop {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #ffbc00;
+  color: #333;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+#backToTop:hover {
+  background-color: #333;
+  color: #fff;
+  transform: translateY(-5px);
+}
+
+#backToTop.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Mobile Menu Toggle */
+#mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 10px;
+  margin-right: 10px;
+}
+
+#mobile-menu-toggle:hover {
+  color: #ffbc00;
+}
+
+/* Search Container */
+.search-container {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.search-container input {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px 0 0 5px;
+  flex: 1;
+  max-width: 250px;
+  font-size: 14px;
+}
+
+.search-container button {
+  padding: 8px 15px;
+  background-color: #ffbc00;
+  border: none;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  color: #333;
+  transition: background-color 0.3s ease;
+}
+
+.search-container button:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+/* Form Messages */
+.form-message {
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  animation: slideDown 0.3s ease;
+}
+
+.form-message.success {
+  background-color: #4caf50;
+  color: white;
+}
+
+.form-message.error {
+  background-color: #f44336;
+  color: white;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade-in Animation for Articles */
+.card {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.card.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  #mobile-menu-toggle {
+    display: block;
+  }
+
+  #main-nav ul {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #333;
+    padding: 0;
+    margin: 0;
+  }
+
+  #main-nav ul.show {
+    display: flex;
+  }
+
+  #main-nav ul li {
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #555;
+  }
+
+  #main-nav ul li a {
+    display: block;
+    padding: 15px;
+  }
+
+  .search-container {
+    flex-direction: column;
+    align-items: stretch;
+    margin: 10px;
+  }
+
+  .search-container input {
+    max-width: 100%;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+
+  .search-container button {
+    border-radius: 5px;
+  }
+
+  #backToTop {
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+  }
+}
